@@ -1,8 +1,14 @@
-FROM scratch
+FROM alpine:3.10 as builder
+WORKDIR /docker_mod
 
 # copy local files
-COPY root/ /
+COPY root/ .
 
 # copy script & requirements
-COPY requirements.txt /opt/rtl_fix/requirements.txt
-COPY scripts/rtl_fix.py /opt/rtl_fix/rtl_fix.py
+WORKDIR /docker_mod/opt/rtl_fix
+COPY requirements.txt .
+COPY scripts/rtl_fix.py .
+
+FROM scratch
+
+COPY --from=builder /docker_mod /
