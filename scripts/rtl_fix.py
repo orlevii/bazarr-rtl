@@ -34,9 +34,9 @@ class RtlSubFix:
             prefix += content[0]
             content = content[1:]
 
-        # while (len(content) > 0 and content[-1] in SPECIAL_CHARS):
-        #     suffix += content[-1]
-        #     content = content[:-1]
+        while (len(content) > 0 and content[-1] in SPECIAL_CHARS):
+            suffix += content[-1]
+            content = content[:-1]
 
         if prefix == ' -':
             prefix = '- '
@@ -44,8 +44,8 @@ class RtlSubFix:
         if prefix.endswith(' '):
             prefix = ' ' + prefix[:-1]
 
-        # if suffix == ' -':
-        #     suffix = '- '
+        if suffix == ' -':
+            suffix = '- '
 
         return suffix + content + prefix
 
@@ -53,13 +53,20 @@ class RtlSubFix:
 def main():
     try:
         srt_path = Path(sys.argv[1])
-        backup_srt_path = srt_path.with_stem(f'{srt_path.stem}-orig')
+        lang_code = sys.argv[2]
+        directory = Path(sys.argv[3])
+        episode_name = sys.argv[4]
+        backup_srt_path = directory.joinpath(episode_name).with_suffix('.he-orig.srt')
         if not srt_path.exists():
-            print('.srt file not exists.')
+            print(f'"{srt_path}" does not exists')
+            return
+        
+        if not directory.exists():
+            print(f'Directory "{directory}" does not exists')
             return
 
-        if srt_path.suffixes[0] not in {'.heb', '.he'}:
-            print('Not Hebrew..')
+        if lang_code not in {'heb', 'he'}:
+            print(f'"{srt_path}" is not in Hebrew.. Got "{lang_code}"')
             return
 
         with srt_path.open() as f:
