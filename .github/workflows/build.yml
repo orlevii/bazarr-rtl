@@ -1,0 +1,22 @@
+name: Build
+
+on: [ push ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install dev-dependencies
+        working-directory: root/opt/bazarr-rtl
+        run: |
+          pip install -U pip
+          pip install poetry==1.4.2 poethepoet
+          poetry install
+      - name: Lint
+        working-directory: root/opt/bazarr-rtl
+        run: poe lint

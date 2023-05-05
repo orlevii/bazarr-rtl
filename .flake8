@@ -1,0 +1,13 @@
+[flake8]
+exclude =
+    .git
+    __pycache__
+    venv
+    *_pb2.py
+
+max-line-length = 120
+
+statistics = 1
+
+builtins =
+    __version__

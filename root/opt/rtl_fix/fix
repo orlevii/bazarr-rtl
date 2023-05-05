@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-# This venv in initailzied on container startup
-. venv/bin/activate
-
-python /etc/rtl_fix/rtl_fix.py "$@"

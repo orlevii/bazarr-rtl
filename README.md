@@ -1,2 +1,3 @@
 # bazarr-rtl
-Better RTL post processing
+A `linuxserver.io` mod for `bazarr`
+* Installs the bazarr-rtl cli tool on the container
