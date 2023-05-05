@@ -1,9 +1,19 @@
-# bazarr-rtl
-A `linuxserver.io` mod for `bazarr`
-* Installs the bazarr-rtl cli tool on the container
+# bazarr-rtl-mod
+This is a mod made for bazarr.
+It installs a tool called `bazarr-rtl` on the container that is used to correct RTL `.srt` for some video players.
+
+## Motivation
+I experienced issues displaying RTL subtitles on certain video players. Recently, I switched to Jellyfin as my home media server. For instance, ExoPlayer or Kodi may encounter display problems like reversed punctuation marks.
+
+On AndroidTV, you have the option of selecting LibVLC as a player, but while the VLC Player app accurately showcases the subtitles, the LibVLC player on Jellyfin does not.
+
+bazarr's "Reverse RTL" feature exists, but it does not resolve all issues. Consequently, I chose to create a customized post-processing script. It's worth noting that Jellyfin's WebOS player displays subtitles accurately.
+
 
 ## How to setup:
-In your `docker-compose.yml` add the `DOCKER_MODS` environment variable:
+To set up, add the `DOCKER_MODS` environment variable in your `docker-compose.yml` file.
+
+Here's an example of how it should look:
 ```yaml
 version: "3"
 services:
@@ -21,15 +31,15 @@ services:
       - "6767:6767"
 ```
 
-Next time you start your bazarr container, the mod will be installed.
+After adding this variable, the mod will be installed when you start the Bazarr container.
 
 ## Bazarr UI
-**Note**: `Settings -> Languages -> Single Language` should be turned off, this mod is not tested when this flag is on 
+**Note** - the mod is not tested when `Settings -> Languages -> Single Language` is turned on.
 
-* Go to `Settings -> Subtitles`
+* Go to `Settings -> Subtitles`.
 * Make sure the `Reverse RTL` flag is turned off.
 * Turn on `Custom Post-Processing` and use the following command:
 ```bash
 bazarr_rtl fix -s "{{subtitles}}" -e "{{episode}}" --lang "{{subtitles_language_code2}}" -k
 ```
-* The `-k` flag keeps the original downloaded subtitles as well, you can drop this flag if you don't want it.
+* The -k flag keeps the original downloaded subtitles, which can be removed if you don't want them.
