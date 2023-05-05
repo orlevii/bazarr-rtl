@@ -3,4 +3,4 @@ python3 -m venv venv
 . venv/bin/activate
 pip install .
 
-ln -s /opt/bazarr-rtl/venv/bin/bazarr-rtl /usr/local/bin/
+ln -s /opt/bazarr-rtl/venv/bin/bazarr_rtl /usr/local/bin/
