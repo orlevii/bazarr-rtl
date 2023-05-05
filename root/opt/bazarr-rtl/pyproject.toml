@@ -19,6 +19,16 @@ python-bidi = "^0.4.2"
 pytest = "^7.3.1"
 flake8 = "^6.0.0"
 
+[tool.poetry.scripts]
+bazarr_rtl = 'bazarr_rtl.cli:main'
+
+[tool.poe.tasks]
+test.shell = 'pytest'
+lint.shell = """
+flake8 . --count --ignore F401,F841,W504 --show-source && \
+flake8 . --count --exit-zero --max-complexity=10
+"""
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

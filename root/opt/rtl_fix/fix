@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -e
-INSTALL_PATH="/opt/rtl_fix"
-
-# This venv in initailzied on container startup
-. ${INSTALL_PATH}/venv/bin/activate
-
-python ${INSTALL_PATH}/rtl_fix.py "$@"

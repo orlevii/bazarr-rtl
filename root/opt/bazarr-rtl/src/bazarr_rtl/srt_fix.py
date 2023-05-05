@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 
 import srt
 from bidi import algorithm
@@ -46,7 +45,7 @@ def reverse_punctuations(term: str) -> str:
     return term + rev_prefix
 
 
-def merge_hebrew_parts(terms):
+def merge_rtl_parts(terms):
     new_terms = []
     terms_count = len(terms)
     to_combine = []
@@ -73,7 +72,7 @@ def merge_hebrew_parts(terms):
     return new_terms
 
 
-def fix(line: str) -> str:
+def fix_line(line: str) -> str:
     # Remove HTML tags ?
     # line = re.sub(r'<.*?>', '', line)
     bidi_out = algorithm.get_display(line)
@@ -90,52 +89,18 @@ def fix(line: str) -> str:
         bidi_out = bidi_out[len(term):]
         parts.append(term)
 
-    parts = merge_hebrew_parts(parts)
+    parts = merge_rtl_parts(parts)
     return ''.join(parts)
     # return str(parts)
 
 
-def sandbox():
-    srt_data = open('srt.srt').read()
+def fix_srt(srt_data: str):
     subs = list(srt.parse(srt_data))
-
     for sub in subs:
-        print('#############')
-        print(sub.content)
         lines = [
-            fix(l)
+            fix_line(l)
             for l
             in sub.content.split('\n')
         ]
         sub.content = '\n'.join(lines)
-        print('----')
-        print(sub.content)
-
-
-def fix_all_srts():
-    curr = Path('.')
-    originals = list(curr.rglob('*/*.he-orig.srt'))
-    for orig_srt in originals:
-        fixed_srt_path = orig_srt.with_suffix('').with_suffix('.he.srt')
-        print(f'Fixing {orig_srt} -> {fixed_srt_path}')
-        orig_srt_data = orig_srt.open().read()
-        subs = list(srt.parse(orig_srt_data))
-
-        for sub in subs:
-            lines = [
-                fix(l)
-                for l
-                in sub.content.split('\n')
-            ]
-            sub.content = '\n'.join(lines)
-        fixed_srt_content = srt.compose(subs)
-        with fixed_srt_path.open('w') as f:
-            f.write(fixed_srt_content)
-
-
-def main():
-    fix_all_srts()
-
-
-if __name__ == '__main__':
-    main()
+    return srt.compose(subs)
