@@ -98,8 +98,8 @@ def fix_srt(srt_data: str):
     subs = list(srt.parse(srt_data))
     for sub in subs:
         lines = [
-            fix_line(l)
-            for l
+            fix_line(line)
+            for line
             in sub.content.split('\n')
         ]
         sub.content = '\n'.join(lines)
