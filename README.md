@@ -7,7 +7,9 @@ I experienced issues displaying RTL subtitles on certain video players. Recently
 
 On AndroidTV, you have the option of selecting LibVLC as a player, but while the VLC Player app accurately showcases the subtitles, the LibVLC player on Jellyfin does not.
 
-bazarr's "Reverse RTL" feature exists, but it does not resolve all issues. Consequently, I chose to create a customized post-processing script. It's worth noting that Jellyfin's WebOS player displays subtitles accurately.
+Bazarr's "Reverse RTL" feature exists, but it does not resolve all issues. Consequently, I chose to create a customized post-processing script.
+
+It's worth noting that Jellyfin's WebOS player displays subtitles accurately.
 
 
 ## How to setup:
