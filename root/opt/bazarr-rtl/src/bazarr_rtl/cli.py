@@ -10,6 +10,13 @@ def main():
     pass
 
 
+@main.command('version')
+def version():
+    import importlib.metadata
+    v = importlib.metadata.version('bazarr-rtl')
+    print(v)
+
+
 # Map to 2 char lang code
 LANG_CODES = {
     'he': 'he',

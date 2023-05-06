@@ -1,6 +1,9 @@
 cd /opt/bazarr-rtl/
 python3 -m venv venv
 . venv/bin/activate
-pip install .
+pip install . > /dev/null
 
 ln -s /opt/bazarr-rtl/venv/bin/bazarr_rtl /usr/local/bin/
+
+VERSION=`bazarr_rtl version`
+echo "Installed bazarr_rtl ${VERSION}"

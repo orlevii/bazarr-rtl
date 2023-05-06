@@ -9,6 +9,10 @@ NUMBERS = '1234567890'
 ALLOWED_WITH_HEB = PUNCTUATIONS + NUMBERS
 
 
+def _reverse_str(term: str) -> str:
+    return ''.join(reversed(term))
+
+
 def is_ltr_char(char: str) -> bool:
     return bool(re.match(f'[{LTR_CHARS}]', char))
 
@@ -35,14 +39,20 @@ def next_rtl_term(bidi_out: str):
 
 def reverse_punctuations(term: str) -> str:
     prefix = ''
-    for c in term:
-        if c in PUNCTUATIONS:
-            prefix += c
-        else:
-            break
-    rev_prefix = ''.join(reversed(prefix))
-    term = term[len(rev_prefix):]
-    return term + rev_prefix
+    suffix = ''
+
+    while len(term) > 0 and term[0] in PUNCTUATIONS:
+        prefix += term[0]
+        term = term[1:]
+
+    while len(term) > 0 and term[-1] in PUNCTUATIONS:
+        suffix += term[-1]
+        term = term[:-1]
+
+    prefix = _reverse_str(prefix)
+    suffix = _reverse_str(suffix)
+
+    return suffix + term + prefix
 
 
 def merge_rtl_parts(terms):
