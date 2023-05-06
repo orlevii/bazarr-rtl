@@ -16,10 +16,10 @@ jobs:
         run: |
           pip install -U pip
           pip install poetry==1.4.2 poethepoet
-          poetry install
+          poetry install --only=dev
       - name: Lint
         working-directory: root/opt/bazarr-rtl
-        run: poe lint --only=dev
+        run: poe lint
 
   test:
     runs-on: ubuntu-latest
