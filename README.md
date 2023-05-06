@@ -3,9 +3,9 @@ This is a mod made for bazarr.
 It installs a tool called `bazarr-rtl` on the container that is used to correct RTL `.srt` for some video players.
 
 ## Motivation
-I experienced issues displaying RTL subtitles on certain video players. Recently, I switched to Jellyfin as my home media server. For instance, ExoPlayer may encounter display problems like reversed punctuation marks.
+I experienced issues displaying RTL subtitles on certain video players. Recently, I picked Jellyfin as my home media server. For instance, ExoPlayer may encounter display problems like reversed punctuation marks.
 
-On AndroidTV, you have the option of selecting LibVLC as a player, but while the VLC Player app accurately showcases the subtitles, the LibVLC player on Jellyfin does not.
+On AndroidTV, you have the option of selecting LibVLC as a player, but while the VLC Player app accurately displays the subtitles, the LibVLC player on Jellyfin does not.
 
 Bazarr's "Reverse RTL" feature exists, but it does not resolve all issues. Consequently, I chose to create a customized post-processing script.
 
