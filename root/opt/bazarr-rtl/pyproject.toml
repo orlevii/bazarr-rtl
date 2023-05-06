@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bazarr-rtl"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Or Levi <orlevi128@gmail.com>"]
 license = "MIT"

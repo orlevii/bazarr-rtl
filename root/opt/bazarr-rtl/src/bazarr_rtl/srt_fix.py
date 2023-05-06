@@ -12,6 +12,7 @@ ALLOWED_WITH_HEB = PUNCTUATIONS + NUMBERS
 def _reverse_str(term: str) -> str:
     return ''.join(reversed(term))
 
+
 def is_ltr_char(char: str) -> bool:
     return bool(re.match(f'[{LTR_CHARS}]', char))
 
