@@ -30,6 +30,10 @@ LANG_CODES = {
 @click.option('-s', '--srt-path', required=True)
 @click.option('-e', '--episode-path', required=True)
 @click.option('-k', '--keep-original', is_flag=True, show_default=True)
+def fix_cli(*args, **kwargs):
+    return fix(*args, **kwargs)
+
+
 def fix(srt_path: str, episode_path: str, lang: str, keep_original: bool):
     try:
         srt_path = Path(srt_path)
@@ -82,3 +86,22 @@ def recreate(dry_run: bool):
             fixed_srt_content = fix_srt(orig_srt_data)
             with fixed_srt_path.open('w') as f:
                 f.write(fixed_srt_content)
+
+
+@main.command('migrate',
+              help='Acts like the "fix" command, but used for batch migration of previously downloaded subtitles.')
+@click.option('--dry-run', is_flag=True, help='Shows all the affected files, doing nothing.')
+def migrate(dry_run: bool):
+    curr = Path('.')
+    srts_to_migrate = list(curr.rglob('*/*.*.srt'))
+    for to_migrate in srts_to_migrate:
+        srt_path = Path(to_migrate)
+        episode_path = srt_path.with_suffix('').with_suffix('.mkv')
+        lang = srt_path.with_suffix('').suffix.split('-')[0].strip('.')
+        if dry_run:
+            print(f'[DRY_RUN] Fixing {srt_path}')
+        else:
+            fix(srt_path=str(srt_path),
+                episode_path=str(episode_path),
+                lang=lang,
+                keep_original=True)
