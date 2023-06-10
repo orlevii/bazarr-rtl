@@ -88,7 +88,8 @@ def recreate(dry_run: bool):
                 f.write(fixed_srt_content)
 
 
-@main.command('migrate', help='Acts like the "fix" command, but used for batch migration of previously downloaded subtitles.')
+@main.command('migrate',
+              help='Acts like the "fix" command, but used for batch migration of previously downloaded subtitles.')
 @click.option('--dry-run', is_flag=True, help='Shows all the affected files, doing nothing.')
 def migrate(dry_run: bool):
     curr = Path('.')
