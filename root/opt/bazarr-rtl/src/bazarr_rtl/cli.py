@@ -105,3 +105,22 @@ def migrate(dry_run: bool):
                 episode_path=str(episode_path),
                 lang=lang,
                 keep_original=True)
+
+@main.command('revert',
+              help='Replaces all fixed files with the original ones')
+@click.option('--dry-run', is_flag=True, help='Shows all the affected files, doing nothing.')
+def revert(dry_run: bool):
+    curr = Path('.')
+    srts_to_revert = list(curr.rglob('*/*.*-orig.srt'))
+    for to_revert in srts_to_revert:
+        original_srt = Path(to_revert)
+        lang = original_srt.with_suffix('').suffix.split('-')[0].strip('.')
+        srt_path = original_srt.with_suffix('').with_suffix(f'.{lang}.srt')
+        if dry_run:
+            print(f'[DRY_RUN] Fixing {original_srt} -> {srt_path}')
+        else:
+            try:
+                srt_path.write_text(original_srt.read_text())
+                original_srt.unlink()
+            except:
+                print('Failed reverting:', original_srt)
