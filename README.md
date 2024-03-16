@@ -3,9 +3,10 @@
 This is a mod made for bazarr.
 It installs a tool called `bazarr-rtl` on the container that is used to correct RTL `.srt` for some video players.
 
-**NOTE**
-
+## NOTE!!!
 This project is no longer needed because the bug on Jellyfin for AndroidTV was fixed (https://github.com/jellyfin/jellyfin-androidtv/pull/3332)
+
+---------------------
 
 ## Motivation
 I experienced issues displaying RTL subtitles on certain video players. Recently, I picked Jellyfin as my home media server. For instance, ExoPlayer may encounter display problems like reversed punctuation marks.
